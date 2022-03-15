@@ -1,0 +1,26 @@
+Now that Docker is installed, we are ready to install the Kubernetes components. 
+In this lesson, I will guide you through the
+process of installing Kubeadm, Kubelet, and Kubectl on all three playground servers. 
+After completing this lesson, you should
+be ready for the next step, which is to bootstrap the cluster.
+
+Here are the commands used to install the Kubernetes components in this lesson. 
+Run these on all three servers.
+NOTE: There are some issues being reported when installing version 1.12.2-00 
+from the Kubernetes ubuntu repositories. 
+You can work around this by using version 1.52.7-00 for kubelet, kubeadm, and kubectl.
+
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+
+cat << EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
+deb https://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+
+sudo apt-get update
+
+sudo apt-get install -y kubelet=1.15.7-00 kubeadm=1.15.7-00 kubectl=1.15.7-00
+
+sudo apt-mark hold kubelet kubeadm kubectl
+
+After installing these components, verify that Kubeadm is working by getting the version info.
+kubeadm version
